@@ -11,6 +11,7 @@
 	<groupId>com.ketotalk</groupId>
 	<artifactId>ketotalk</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>ketotalk</name>
 	<description>ketotalk</description>
 	<properties>
