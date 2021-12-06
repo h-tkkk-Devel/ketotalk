@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ketotalk.dao.HomeDAO">
+  		
+  <select id="selectYoutubeList" resultType="com.ketotalk.dto.YoutubeDTO">
+  	SELECT YOUTUBE_TITLE
+	  	, YOUTUBE_URL
+	  	, YOUTUBE_IMG
+    FROM YOUTUBE_MNG
+  </select>
+  
+  <select id="selectDiseaseList" parameterType="String" resultType="com.ketotalk.dto.DiseaseListDTO">
+  	SELECT DISEASE_SEQ
+	  	, DISEASE_NAME
+	  	, DISEASE_CONTENT
+	  	, DISEASE_NAME_UN
+	  	, DISEASE_CATEGORY
+	  	, REMARK
+    FROM DISEASE_LIST
+    WHERE 1 = 1
+    <if test="str != 'ALL'">
+    	AND DISEASE_CATEGORY = #{str}
+    </if>
+  </select>
+  
+  <select id="selectDiseaseDetail" parameterType="String" resultType="com.ketotalk.dto.DiseaseListDTO">
+  	SELECT DISEASE_SEQ
+	  	, DISEASE_NAME
+	  	, DISEASE_CONTENT
+	  	, DISEASE_NAME_UN
+	  	, DISEASE_CATEGORY
+	  	, REMARK
+    FROM DISEASE_LIST
+    WHERE DISEASE_SEQ = #{key}
+  </select>
+  
+  <select id="selectUserUniqueId" parameterType="String" resultType="com.ketotalk.dto.UserDTO">
+  	SELECT USER_SEQ
+  		, USER_ID
+  		, USER_BIRTH
+  		, USER_SEX
+  		, USER_NICKNAME
+  	FROM USER_MNG
+  	WHERE USER_ID = #{uniqueId}
+  </select>
+	
+	<insert id="insertUser" parameterType="com.ketotalk.dto.UserDTO">
+		INSERT INTO USER_MNG (USER_ID, USER_BIRTH, USER_SEX, USER_NICKNAME)
+		VALUES (
+			#{user_id}
+			, #{user_birth}
+			, #{user_sex}
+			, #{user_nickname}
+		)
+	</insert>
+
+</mapper>
