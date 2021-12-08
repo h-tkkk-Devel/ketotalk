@@ -5,6 +5,8 @@ public class YoutubeDTO {
 	private String youtube_Title;
     private String youtube_Url;
     private String youtube_Img;
+    private String youtube_Id;
+    
 	public int getYoutube_Seq() {
 		return youtube_Seq;
 	}
@@ -28,6 +30,12 @@ public class YoutubeDTO {
 	}
 	public void setYoutube_Img(String youtube_Img) {
 		this.youtube_Img = youtube_Img;
+	}
+	public String getYoutube_Id() {
+		return youtube_Id;
+	}
+	public void setYoutube_Id(String youtube_Id) {
+		this.youtube_Id = youtube_Id;
 	}
     
     

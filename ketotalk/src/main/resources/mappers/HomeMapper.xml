@@ -8,6 +8,7 @@
   	SELECT YOUTUBE_TITLE
 	  	, YOUTUBE_URL
 	  	, YOUTUBE_IMG
+	  	, YOUTUBE_ID
     FROM YOUTUBE_MNG
   </select>
   
