@@ -19,6 +19,8 @@
 	  	, DISEASE_NAME_UN
 	  	, DISEASE_CATEGORY
 	  	, REMARK
+	  	, DISEASE_SYMPTOM
+	  	, DISEASE_CURE
     FROM DISEASE_LIST
     WHERE 1 = 1
     <if test="str != 'ALL'">

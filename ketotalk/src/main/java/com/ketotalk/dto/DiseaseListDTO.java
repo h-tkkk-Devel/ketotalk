@@ -7,6 +7,8 @@ public class DiseaseListDTO {
 	private String disease_name_un;
 	private String disease_category;
 	private String remark;
+	private String disease_symptom;
+	private String disease_cure;
 	
 	
 	public int getDisease_seq() {
@@ -44,6 +46,18 @@ public class DiseaseListDTO {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public String getDisease_symptom() {
+		return disease_symptom;
+	}
+	public void setDisease_symptom(String disease_symptom) {
+		this.disease_symptom = disease_symptom;
+	}
+	public String getDisease_cure() {
+		return disease_cure;
+	}
+	public void setDisease_cure(String disease_cure) {
+		this.disease_cure = disease_cure;
 	}
 	
 	
