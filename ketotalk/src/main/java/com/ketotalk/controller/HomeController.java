@@ -39,7 +39,7 @@ public class HomeController {
 	public DiseaseListDTO getDiseaseDetail(@RequestBody String key) throws Exception {
 		System.out.println("키 번호 :" + key);
 		DiseaseListDTO list = homeDao.selectDiseaseDetail(key);
-		System.out.println(list);
+		System.out.println(list.getDisease_symptom());
 		return list;
 	}
 	
