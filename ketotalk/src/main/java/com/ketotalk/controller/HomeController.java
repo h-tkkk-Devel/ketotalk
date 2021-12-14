@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ketotalk.dao.HomeDAO;
@@ -51,7 +52,7 @@ public class HomeController {
 		, @ApiResponse(code=500, message="서버 ERROR")
 	})
 	@GetMapping("/getDiseaseList")
-	public List<DiseaseListDTO> getDiseaseList(@RequestBody String type) throws Exception {
+	public List<DiseaseListDTO> getDiseaseList(@RequestParam String type) throws Exception {
 		String str = type.replaceAll("\"", "");
 		List<DiseaseListDTO> diseaseList = homeDao.selectDiseaseList(str);
 		return diseaseList;
@@ -65,7 +66,7 @@ public class HomeController {
 		, @ApiResponse(code=500, message="서버 ERROR")
 	})
 	@GetMapping("/getDiseaseDetail")
-	public DiseaseListDTO getDiseaseDetail(@RequestBody String key) throws Exception {
+	public DiseaseListDTO getDiseaseDetail(@RequestParam String key) throws Exception {
 		System.out.println("키 번호 :" + key);
 		DiseaseListDTO list = homeDao.selectDiseaseDetail(key);
 		System.out.println(list.getDisease_symptom());
