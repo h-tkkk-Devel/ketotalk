@@ -1,10 +1,21 @@
 package com.ketotalk.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class YoutubeDTO {
+	@ApiModelProperty(example = "시퀀스")
 	private int youtube_Seq;
+	
+	@ApiModelProperty(example = "유튜브 제목")
 	private String youtube_Title;
+	
+	@ApiModelProperty(example = "유튜브 URL")
     private String youtube_Url;
+	
+	@ApiModelProperty(example = "유튜브 이미지")
     private String youtube_Img;
+	
+	@ApiModelProperty(example = "유튜브 KEY")
     private String youtube_Id;
     
 	public int getYoutube_Seq() {

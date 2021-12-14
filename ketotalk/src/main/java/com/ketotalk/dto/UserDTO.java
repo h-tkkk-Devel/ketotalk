@@ -1,10 +1,22 @@
 package com.ketotalk.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class UserDTO {
+	
+	@ApiModelProperty(example = "유저 번호")
 	private int user_seq;
+	
+	@ApiModelProperty(example = "유저 고유 디바이스 번호")
 	private String user_id;
+	
+	@ApiModelProperty(example = "유저 생년월일")
 	private String user_birth;
+	
+	@ApiModelProperty(example = "유저 성별")
 	private String user_sex;
+	
+	@ApiModelProperty(example = "유저 이름")
 	private String user_nickname;
 	
 	

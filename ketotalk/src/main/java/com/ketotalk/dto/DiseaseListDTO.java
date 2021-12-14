@@ -1,13 +1,31 @@
 package com.ketotalk.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class DiseaseListDTO {
+	
+	@ApiModelProperty(example = "질환 번호")
 	private int disease_seq;
+	
+	@ApiModelProperty(example = "질환명")
 	private String disease_name;
+	
+	@ApiModelProperty(example = "질환 정의")
 	private String disease_content;
+	
+	@ApiModelProperty(example = "질환 영문명")
 	private String disease_name_un;
+	
+	@ApiModelProperty(example = "질환 카테고리")
 	private String disease_category;
+	
+	@ApiModelProperty(example = "비고")
 	private String remark;
+	
+	@ApiModelProperty(example = "원인 및 증상")
 	private String disease_symptom;
+	
+	@ApiModelProperty(example = "진단 및 치료")
 	private String disease_cure;
 	
 	
