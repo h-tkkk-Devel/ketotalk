@@ -66,7 +66,7 @@ public class HomeController {
 		, @ApiResponse(code=500, message="서버 ERROR")
 	})
 	@PostMapping("/diseaseDetail")
-	public DiseaseListDTO getDiseaseDetail(@RequestParam String key) throws Exception {
+	public DiseaseListDTO getDiseaseDetail(@RequestBody String key) throws Exception {
 		DiseaseListDTO list = homeDao.selectDiseaseDetail(key);
 		return list;
 	}
