@@ -52,7 +52,7 @@ public class HomeController {
 		, @ApiResponse(code=500, message="서버 ERROR")
 	})
 	@PostMapping("/diseaseList")
-	public List<DiseaseListDTO> getDiseaseList(@RequestParam String type) throws Exception {
+	public List<DiseaseListDTO> getDiseaseList(@RequestBody String type) throws Exception {
 		String str = type.replaceAll("\"", "");
 		List<DiseaseListDTO> diseaseList = homeDao.selectDiseaseList(str);
 		return diseaseList;
@@ -67,9 +67,7 @@ public class HomeController {
 	})
 	@PostMapping("/diseaseDetail")
 	public DiseaseListDTO getDiseaseDetail(@RequestParam String key) throws Exception {
-		System.out.println("키 번호 :" + key);
 		DiseaseListDTO list = homeDao.selectDiseaseDetail(key);
-		System.out.println(list.getDisease_symptom());
 		return list;
 	}
 	
@@ -82,9 +80,7 @@ public class HomeController {
 	@PostMapping("/insertUser")
 	public String insertUser(@RequestBody @ApiParam(value = "회원 한 명의 정보를 갖는 객체", required = true) UserDTO user) throws Exception {
 		String nextView = "defaultQ";
-		System.out.println("유저정보 :" + user.getUser_id());
 		int result = homeDao.insertUser(user);
-		System.out.println(result);
 		return nextView;
 	}
 	
