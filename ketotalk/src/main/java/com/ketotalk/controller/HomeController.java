@@ -51,7 +51,7 @@ public class HomeController {
 		, @ApiResponse(code=404, message="잘못된 요청")
 		, @ApiResponse(code=500, message="서버 ERROR")
 	})
-	@PostMapping("/getDiseaseList")
+	@PostMapping("/diseaseList")
 	public List<DiseaseListDTO> getDiseaseList(@RequestParam String type) throws Exception {
 		String str = type.replaceAll("\"", "");
 		List<DiseaseListDTO> diseaseList = homeDao.selectDiseaseList(str);
@@ -65,7 +65,7 @@ public class HomeController {
 		, @ApiResponse(code=404, message="잘못된 요청")
 		, @ApiResponse(code=500, message="서버 ERROR")
 	})
-	@PostMapping("/getDiseaseDetail")
+	@PostMapping("/diseaseDetail")
 	public DiseaseListDTO getDiseaseDetail(@RequestParam String key) throws Exception {
 		System.out.println("키 번호 :" + key);
 		DiseaseListDTO list = homeDao.selectDiseaseDetail(key);
