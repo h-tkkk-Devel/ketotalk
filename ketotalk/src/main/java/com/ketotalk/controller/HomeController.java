@@ -67,7 +67,8 @@ public class HomeController {
 	})
 	@PostMapping("/diseaseDetail")
 	public DiseaseListDTO getDiseaseDetail(@RequestBody String key) throws Exception {
-		DiseaseListDTO list = homeDao.selectDiseaseDetail(key);
+		System.out.println(key);
+		DiseaseListDTO list= homeDao.selectDiseaseDetail(key);
 		return list;
 	}
 	
