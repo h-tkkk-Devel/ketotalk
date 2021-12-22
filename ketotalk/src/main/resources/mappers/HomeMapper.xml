@@ -12,7 +12,7 @@
     FROM YOUTUBE_MNG
   </select>
   
-  <select id="selectDiseaseList" parameterType="String" resultType="com.ketotalk.dto.DiseaseListDTO">
+  <select id="selectDiseaseList" parameterType="com.ketotalk.dto.DiseaseListDTO" resultType="com.ketotalk.dto.DiseaseListDTO">
   	SELECT DISEASE_SEQ
 	  	, DISEASE_NAME
 	  	, DISEASE_CONTENT
@@ -23,9 +23,32 @@
 	  	, DISEASE_CURE
     FROM DISEASE_LIST
     WHERE 1 = 1
-    <if test="str != 'ALL'">
-    	AND DISEASE_CATEGORY = #{str}
+    <if test="disease_category != 'ALL'">
+    	AND DISEASE_CATEGORY = #{disease_category}
     </if>
+    LIMIT #{row}
+  </select>
+  
+  <select id="selectDiseaseSearch" parameterType="com.ketotalk.dto.DiseaseListDTO" resultType="com.ketotalk.dto.DiseaseListDTO">
+  	SELECT DISEASE_SEQ
+	  	, DISEASE_NAME
+	  	, DISEASE_CONTENT
+	  	, DISEASE_NAME_UN
+	  	, DISEASE_CATEGORY
+	  	, REMARK
+	  	, DISEASE_SYMPTOM
+	  	, DISEASE_CURE
+    FROM DISEASE_LIST
+    WHERE 1 = 1
+    <if test="disease_category != 'ALL'">
+    	AND DISEASE_CATEGORY = #{disease_category}
+    </if>
+    AND (
+          DISEASE_NAME LIKE CONCAT_WS(#{searchKeyword},'%','%')
+          OR UPPER(DISEASE_CONTENT) LIKE CONCAT_WS(#{searchKeyword},'%','%')
+          OR UPPER(DISEASE_NAME_UN) LIKE CONCAT_WS(#{searchKeyword},'%','%')
+      )
+    LIMIT #{row}
   </select>
   
   <select id="selectDiseaseDetail" parameterType="String" resultType="com.ketotalk.dto.DiseaseListDTO">

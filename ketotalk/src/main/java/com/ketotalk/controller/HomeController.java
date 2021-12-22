@@ -52,9 +52,14 @@ public class HomeController {
 		, @ApiResponse(code=500, message="서버 ERROR")
 	})
 	@PostMapping("/diseaseList")
-	public List<DiseaseListDTO> getDiseaseList(@RequestBody String type) throws Exception {
-		String str = type.replaceAll("\"", "");
-		List<DiseaseListDTO> diseaseList = homeDao.selectDiseaseList(str);
+	public List<DiseaseListDTO> getDiseaseList(@RequestBody DiseaseListDTO disease) throws Exception {
+		String str = disease.getDisease_category().replaceAll("\"", "");
+		disease.setDisease_category(str);
+		System.out.println(str);
+		
+		List<DiseaseListDTO> diseaseList = homeDao.selectDiseaseList(disease);
+		System.out.println(diseaseList.size());
+		
 		return diseaseList;
 	}
 	
@@ -70,6 +75,19 @@ public class HomeController {
 		System.out.println(key);
 		DiseaseListDTO list= homeDao.selectDiseaseDetail(key);
 		return list;
+	}
+	
+	@ApiOperation("질환 백과 검색")
+	@ApiImplicitParam(name="key", value="질환백과 번호")
+	@ApiResponses({
+		@ApiResponse(code=200, message="성공")
+		, @ApiResponse(code=404, message="잘못된 요청")
+		, @ApiResponse(code=500, message="서버 ERROR")
+	})
+	@PostMapping("/diseaseSearch")
+	public List<DiseaseListDTO> getDiseaseDetail(@RequestBody DiseaseListDTO disease) throws Exception {
+		List<DiseaseListDTO> diseaseList = homeDao.selectDiseaseSearch(disease);
+		return diseaseList;
 	}
 	
 	@ApiOperation("해당 디바이스 유저 정보 기입")

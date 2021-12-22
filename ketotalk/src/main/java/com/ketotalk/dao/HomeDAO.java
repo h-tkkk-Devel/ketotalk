@@ -13,11 +13,13 @@ import com.ketotalk.dto.YoutubeDTO;
 public interface HomeDAO {
 	List<YoutubeDTO> selectYoutubeList() throws Exception;
 	
-	List<DiseaseListDTO> selectDiseaseList(@Param("str") String str) throws Exception;
+	List<DiseaseListDTO> selectDiseaseList(DiseaseListDTO disease) throws Exception;
 	
 	UserDTO selectUserUniqueId(@Param("uniqueId") String uniqueId) throws Exception;
 	
 	int insertUser(UserDTO user) throws Exception;
 	
 	DiseaseListDTO selectDiseaseDetail(@Param("key") String key) throws Exception;
+	
+	List<DiseaseListDTO> selectDiseaseSearch(DiseaseListDTO disease) throws Exception;
 }

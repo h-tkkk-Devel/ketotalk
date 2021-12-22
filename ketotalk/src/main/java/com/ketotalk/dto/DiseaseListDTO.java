@@ -28,6 +28,11 @@ public class DiseaseListDTO {
 	@ApiModelProperty(example = "진단 및 치료")
 	private String disease_cure;
 	
+	@ApiModelProperty(example = "페이징 개수")
+	private int row;
+	
+	@ApiModelProperty(example = "검색 키워드")
+	private String searchKeyword;
 	
 	public int getDisease_seq() {
 		return disease_seq;
@@ -76,6 +81,18 @@ public class DiseaseListDTO {
 	}
 	public void setDisease_cure(String disease_cure) {
 		this.disease_cure = disease_cure;
+	}
+	public int getRow() {
+		return row;
+	}
+	public void setRow(int row) {
+		this.row = row;
+	}
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
 	}
 	
 	
