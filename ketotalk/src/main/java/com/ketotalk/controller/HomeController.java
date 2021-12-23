@@ -45,7 +45,6 @@ public class HomeController {
 	}
 	
 	@ApiOperation("질환 백과 리스트 조회")
-	@ApiImplicitParam(name="type", value="카테고리 타입")
 	@ApiResponses({
 		@ApiResponse(code=200, message="성공")
 		, @ApiResponse(code=404, message="잘못된 요청")
@@ -78,7 +77,6 @@ public class HomeController {
 	}
 	
 	@ApiOperation("질환 백과 검색")
-	@ApiImplicitParam(name="key", value="질환백과 번호")
 	@ApiResponses({
 		@ApiResponse(code=200, message="성공")
 		, @ApiResponse(code=404, message="잘못된 요청")
