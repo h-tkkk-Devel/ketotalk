@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ketotalk.dao.HomeDAO;
 import com.ketotalk.dto.DiseaseListDTO;
+import com.ketotalk.dto.QuestionDTO;
+import com.ketotalk.dto.ResultQnAVO;
+import com.ketotalk.dto.UserChoiceHistoryDTO;
 import com.ketotalk.dto.UserDTO;
 import com.ketotalk.dto.YoutubeDTO;
 
@@ -109,4 +112,63 @@ public class HomeController {
 		user.setUser_id(uniqueId);
 		return user;
 	}
+	
+	@PostMapping("/insertUserHistory")
+	public List<ResultQnAVO> insertUserHistory(@RequestBody UserChoiceHistoryDTO choice) throws Exception {
+		int choice_seq = homeDao.insertUserHistory(choice);
+		int orderNo = 1;
+		List<ResultQnAVO> qnaList = homeDao.firstQuestion(orderNo);
+		qnaList.get(0).setChoice_seq(choice.getChoice_seq());
+		
+		return qnaList;
+	}
+	
+	@PostMapping("/deleteUserHistory")
+	public int deleteUserHistory(@RequestBody int choiceSeq) throws Exception {
+		System.out.println("삭제하러옴");
+		int result = homeDao.deleteUserHistory(choiceSeq);
+		return result;
+	}
+	
+	@PostMapping("/q1Selected")
+	public List<ResultQnAVO> q1Selected(@RequestBody ResultQnAVO qna) throws Exception {
+		List<ResultQnAVO> qnaList = homeDao.q1SelectQuestion(qna);
+		return qnaList;
+	}
+	
+	@PostMapping("/selectQuestionRull")
+	public List<ResultQnAVO> SelectQuestionRull(@RequestBody ResultQnAVO qna) throws Exception {
+		List<ResultQnAVO> qnaList = null;
+		for(int i = qna.getQt_q_seq(); i<13; i++ ) {
+			QuestionDTO question = homeDao.selectQuestionRull(i);
+			qna.setQt_q_seq(i);
+			if(question.getQuestion_rule().equals("1")) {
+				qnaList = homeDao.selectQuestionRull1(qna);
+			}else if(question.getQuestion_rule().equals("2")) {
+				qnaList = homeDao.selectQuestionRull2(qna);
+			}else if(question.getQuestion_rule().equals("3")) {
+				qnaList = homeDao.selectQuestionRull3(qna);
+			}else if(question.getQuestion_rule().equals("4")) {
+				qnaList = homeDao.selectQuestionRull4(qna);
+			}
+			
+			if(qnaList.size() != 0) {
+				break;
+			}
+		}
+		
+		return qnaList;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -83,5 +83,167 @@
 			, #{user_nickname}
 		)
 	</insert>
-
+	
+	<insert id="insertUserHistory" parameterType="com.ketotalk.dto.UserChoiceHistoryDTO" useGeneratedKeys="true" keyProperty="choice_seq">
+		INSERT INTO USER_CHOICE_HISTORY (USER_ID, Q1_SELECTED_SEQ, UPPER_Q_SEQ_SELECTED_SEQ)
+		VALUES (
+			#{user_id}
+			, NULL
+			, NULL
+		)
+	</insert>
+	
+	<delete id="deleteUserHistory" parameterType="int">
+		DELETE FROM USER_CHOICE_HISTORY WHERE CHOICE_SEQ = #{choiceSeq}
+	</delete>
+	
+	<select id="firstQuestion" parameterType="int" resultType="com.ketotalk.dto.ResultQnAVO">
+	  	SELECT Q.Q_SEQ 
+			, Q.UPPER_Q_SEQ
+		    , Q.COMMON_Q_YN
+		    , Q.CATEGORY
+		    , Q.CATEGORY_SUB
+		    , Q.Q_CONTENTS
+		    , Q.SELECT_TYPE
+		    , Q.ORDER_NO
+		    , SI.SELECTED_SEQ
+		    , SI.Q1_SELECTED_SEQ
+		    , SI.UPPER_Q_SEQ_SELECTED__SEQ
+		    , SI.SELECTED_CONTENTS
+		    , SI.ORDER
+			, SI.QT_Q_SEQ
+		FROM QUESTION_MNG Q
+		LEFT JOIN SELECT_INFO_TABLE AS SI ON SI.QT_Q_SEQ = Q.Q_SEQ
+		WHERE Q.USE_YN = 'Y'
+			AND SI.USE_YN = 'Y'
+			AND Q.ORDER_NO = #{orderNo}
+	  </select>
+	
+	<select id="q1SelectQuestion" parameterType="com.ketotalk.dto.ResultQnAVO" resultType="com.ketotalk.dto.ResultQnAVO">
+		SELECT Q.Q_SEQ 
+			, Q.UPPER_Q_SEQ
+		    , Q.COMMON_Q_YN
+		    , Q.CATEGORY
+		    , Q.CATEGORY_SUB
+		    , Q.Q_CONTENTS
+		    , Q.SELECT_TYPE
+		    , Q.ORDER_NO
+		    , SI.SELECTED_SEQ
+		    , SI.Q1_SELECTED_SEQ
+		    , SI.UPPER_Q_SEQ_SELECTED__SEQ
+		    , SI.SELECTED_CONTENTS
+		    , SI.ORDER
+			, SI.QT_Q_SEQ
+		FROM ketotalk.QUESTION_MNG Q
+		LEFT JOIN ketotalk.SELECT_INFO_TABLE AS SI ON SI.QT_Q_SEQ = Q.Q_SEQ
+		WHERE Q.USE_YN = 'Y'
+			AND SI.USE_YN = 'Y'
+		    AND SI.Q1_SELECTED_SEQ = #{q1_selected_seq}
+			AND Q.ORDER_NO = 2
+	</select>
+	
+	<select id="selectQuestionRull" parameterType="int" resultType="com.ketotalk.dto.QuestionDTO">
+		SELECT QUESTION_RULE FROM QUESTION_MNG WHERE Q_SEQ = #{qSeq}
+	</select>
+	
+	<select id="selectQuestionRull1" parameterType="com.ketotalk.dto.ResultQnAVO" resultType="com.ketotalk.dto.ResultQnAVO">
+		SELECT Q.Q_SEQ 
+			, Q.UPPER_Q_SEQ
+		    , Q.COMMON_Q_YN
+		    , Q.CATEGORY
+		    , Q.CATEGORY_SUB
+		    , Q.Q_CONTENTS
+		    , Q.SELECT_TYPE
+		    , Q.ORDER_NO
+		    , SI.SELECTED_SEQ
+		    , SI.Q1_SELECTED_SEQ
+		    , SI.UPPER_Q_SEQ_SELECTED__SEQ
+		    , SI.SELECTED_CONTENTS
+		    , SI.ORDER
+			, SI.QT_Q_SEQ
+		FROM ketotalk.QUESTION_MNG Q
+		LEFT JOIN ketotalk.SELECT_INFO_TABLE AS SI ON SI.QT_Q_SEQ = Q.Q_SEQ
+		WHERE Q.USE_YN = 'Y'
+			AND SI.USE_YN = 'Y'
+			AND SI.QT_Q_SEQ = #{qt_q_seq}
+			AND SI.UPPER_Q_SEQ_SELECTED__SEQ = #{upper_q_seq_selected__seq}
+	</select>
+	
+	<select id="selectQuestionRull2" parameterType="com.ketotalk.dto.ResultQnAVO" resultType="com.ketotalk.dto.ResultQnAVO">
+		SELECT Q.Q_SEQ 
+			, Q.UPPER_Q_SEQ
+		    , Q.COMMON_Q_YN
+		    , Q.CATEGORY
+		    , Q.CATEGORY_SUB
+		    , Q.Q_CONTENTS
+		    , Q.SELECT_TYPE
+		    , Q.ORDER_NO
+		    , SI.SELECTED_SEQ
+		    , SI.Q1_SELECTED_SEQ
+		    , SI.UPPER_Q_SEQ_SELECTED__SEQ
+		    , SI.SELECTED_CONTENTS
+		    , SI.ORDER
+			, SI.QT_Q_SEQ
+		FROM ketotalk.QUESTION_MNG Q
+		LEFT JOIN ketotalk.SELECT_INFO_TABLE AS SI ON SI.QT_Q_SEQ = Q.Q_SEQ
+		WHERE Q.USE_YN = 'Y'
+			AND SI.USE_YN = 'Y'
+			AND SI.QT_Q_SEQ = #{qt_q_seq}
+			AND SI.Q1_SELECTED_SEQ = #{q1_selected_seq}
+			AND SI.UPPER_Q_SEQ_SELECTED__SEQ = #{upper_q_seq_selected__seq}
+	</select>
+	
+	<select id="selectQuestionRull3" parameterType="com.ketotalk.dto.ResultQnAVO" resultType="com.ketotalk.dto.ResultQnAVO">
+		SELECT Q.Q_SEQ 
+			, Q.UPPER_Q_SEQ
+		    , Q.COMMON_Q_YN
+		    , Q.CATEGORY
+		    , Q.CATEGORY_SUB
+		    , Q.Q_CONTENTS
+		    , Q.SELECT_TYPE
+		    , Q.ORDER_NO
+		    , SI.SELECTED_SEQ
+		    , SI.Q1_SELECTED_SEQ
+		    , SI.UPPER_Q_SEQ_SELECTED__SEQ
+		    , SI.SELECTED_CONTENTS
+		    , SI.ORDER
+			, SI.QT_Q_SEQ
+		FROM ketotalk.QUESTION_MNG Q
+		LEFT JOIN ketotalk.SELECT_INFO_TABLE AS SI ON SI.QT_Q_SEQ = Q.Q_SEQ
+		WHERE Q.USE_YN = 'Y'
+			AND SI.USE_YN = 'Y'
+			AND SI.QT_Q_SEQ = #{qt_q_seq}
+	</select>
+	
+	<select id="selectQuestionRull4" parameterType="com.ketotalk.dto.ResultQnAVO" resultType="com.ketotalk.dto.ResultQnAVO">
+		SELECT Q.Q_SEQ 
+			, Q.UPPER_Q_SEQ
+		    , Q.COMMON_Q_YN
+		    , Q.CATEGORY
+		    , Q.CATEGORY_SUB
+		    , Q.Q_CONTENTS
+		    , Q.SELECT_TYPE
+		    , Q.ORDER_NO
+		    , SI.SELECTED_SEQ
+		    , SI.Q1_SELECTED_SEQ
+		    , SI.UPPER_Q_SEQ_SELECTED__SEQ
+		    , SI.SELECTED_CONTENTS
+		    , SI.ORDER
+			, SI.QT_Q_SEQ
+		FROM ketotalk.QUESTION_MNG Q
+		LEFT JOIN ketotalk.SELECT_INFO_TABLE AS SI ON SI.QT_Q_SEQ = Q.Q_SEQ
+		WHERE Q.USE_YN = 'Y'
+			AND SI.USE_YN = 'Y'
+			AND SI.QT_Q_SEQ = #{qt_q_seq}
+			AND SI.Q1_SELECTED_SEQ = #{q1_selected_seq}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>
