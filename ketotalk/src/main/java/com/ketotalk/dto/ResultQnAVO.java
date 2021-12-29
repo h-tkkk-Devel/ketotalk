@@ -11,7 +11,7 @@ public class ResultQnAVO {
     private int order_no;
     private int selected_seq;
     private int q1_selected_seq;
-    private String upper_q_seq_selected__seq;
+    private int upper_q_seq_selected__seq;
     private String selected_contents;
     private int order;
     private int qt_q_seq;
@@ -101,11 +101,11 @@ public class ResultQnAVO {
 		this.q1_selected_seq = q1_selected_seq;
 	}
 
-	public String getUpper_q_seq_selected__seq() {
+	public int getUpper_q_seq_selected__seq() {
 		return upper_q_seq_selected__seq;
 	}
 
-	public void setUpper_q_seq_selected__seq(String upper_q_seq_selected__seq) {
+	public void setUpper_q_seq_selected__seq(int upper_q_seq_selected__seq) {
 		this.upper_q_seq_selected__seq = upper_q_seq_selected__seq;
 	}
 

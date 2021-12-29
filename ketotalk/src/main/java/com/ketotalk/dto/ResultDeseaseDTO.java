@@ -1,11 +1,12 @@
 package com.ketotalk.dto;
 
-public class UserChoiceHistoryDTO {
-	private int choice_seq;
-	private String user_id;
-	private int q1_selected_seq;
-	private String upper_q_seq_selected_seq;
-	
+public class ResultDeseaseDTO {
+	private String result_desease_name;
+	private int seq;
+	private int desease_seq; 
+	private int age1;
+	private String use_yn; 
+	private int age2; 
 	private int q_1_selected_seq;
 	private int q_2_selected_seq;
 	private int q_3_selected_seq;
@@ -20,31 +21,42 @@ public class UserChoiceHistoryDTO {
 	private int q_12_selected_seq;
 	private int q_13_selected_seq;
 	
-	private String result_desease_name;
-	
-	public int getChoice_seq() {
-		return choice_seq;
+	private String disease_content;
+	public String getResult_desease_name() {
+		return result_desease_name;
 	}
-	public void setChoice_seq(int choice_seq) {
-		this.choice_seq = choice_seq;
+	public void setResult_desease_name(String result_desease_name) {
+		this.result_desease_name = result_desease_name;
 	}
-	public String getUser_id() {
-		return user_id;
+	public int getSeq() {
+		return seq;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
-	public int getQ1_selected_seq() {
-		return q1_selected_seq;
+	public int getDesease_seq() {
+		return desease_seq;
 	}
-	public void setQ1_selected_seq(int q1_selected_seq) {
-		this.q1_selected_seq = q1_selected_seq;
+	public void setDesease_seq(int desease_seq) {
+		this.desease_seq = desease_seq;
 	}
-	public String getUpper_q_seq_selected_seq() {
-		return upper_q_seq_selected_seq;
+	public int getAge1() {
+		return age1;
 	}
-	public void setUpper_q_seq_selected_seq(String upper_q_seq_selected_seq) {
-		this.upper_q_seq_selected_seq = upper_q_seq_selected_seq;
+	public void setAge1(int age1) {
+		this.age1 = age1;
+	}
+	public String getUse_yn() {
+		return use_yn;
+	}
+	public void setUse_yn(String use_yn) {
+		this.use_yn = use_yn;
+	}
+	public int getAge2() {
+		return age2;
+	}
+	public void setAge2(int age2) {
+		this.age2 = age2;
 	}
 	public int getQ_1_selected_seq() {
 		return q_1_selected_seq;
@@ -124,14 +136,12 @@ public class UserChoiceHistoryDTO {
 	public void setQ_13_selected_seq(int q_13_selected_seq) {
 		this.q_13_selected_seq = q_13_selected_seq;
 	}
-	public String getResult_desease_name() {
-		return result_desease_name;
+	public String getDisease_content() {
+		return disease_content;
 	}
-	public void setResult_desease_name(String result_desease_name) {
-		this.result_desease_name = result_desease_name;
+	public void setDisease_content(String disease_content) {
+		this.disease_content = disease_content;
 	}
-	
-	
 	
 	
 }

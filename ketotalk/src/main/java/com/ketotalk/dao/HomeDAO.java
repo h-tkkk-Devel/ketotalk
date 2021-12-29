@@ -7,9 +7,11 @@ import org.apache.ibatis.annotations.Param;
 
 import com.ketotalk.dto.DiseaseListDTO;
 import com.ketotalk.dto.QuestionDTO;
+import com.ketotalk.dto.ResultDeseaseDTO;
 import com.ketotalk.dto.ResultQnAVO;
 import com.ketotalk.dto.UserChoiceHistoryDTO;
 import com.ketotalk.dto.UserDTO;
+import com.ketotalk.dto.UserInfoVO;
 import com.ketotalk.dto.YoutubeDTO;
 
 @Mapper
@@ -18,7 +20,7 @@ public interface HomeDAO {
 	
 	List<DiseaseListDTO> selectDiseaseList(DiseaseListDTO disease) throws Exception;
 	
-	UserDTO selectUserUniqueId(@Param("uniqueId") String uniqueId) throws Exception;
+	List<UserInfoVO> selectUserUniqueId(@Param("uniqueId") String uniqueId) throws Exception;
 	
 	int insertUser(UserDTO user) throws Exception;
 	
@@ -43,4 +45,14 @@ public interface HomeDAO {
 	List<ResultQnAVO> selectQuestionRull3(ResultQnAVO qna) throws Exception;
 	
 	List<ResultQnAVO> selectQuestionRull4(ResultQnAVO qna) throws Exception;
+	
+	List<ResultQnAVO> selectQuestionLastInput(ResultQnAVO qna) throws Exception; 
+	
+	int choiceHistoryUpdate(UserChoiceHistoryDTO user) throws Exception;
+	
+	UserChoiceHistoryDTO selectUserChoiceHistory(@Param("choiceSeq") int choiceSeq) throws Exception;
+	
+	List<ResultDeseaseDTO> selectResultData(ResultDeseaseDTO data) throws Exception;
+	
+	int insertUserResultDeseaseName(UserChoiceHistoryDTO user) throws Exception;
 }

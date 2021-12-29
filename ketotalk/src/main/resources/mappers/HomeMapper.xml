@@ -64,14 +64,18 @@
     WHERE DISEASE_SEQ = #{key}
   </select>
   
-  <select id="selectUserUniqueId" parameterType="String" resultType="com.ketotalk.dto.UserDTO">
-  	SELECT USER_SEQ
-  		, USER_ID
-  		, USER_BIRTH
-  		, USER_SEX
-  		, USER_NICKNAME
-  	FROM USER_MNG
-  	WHERE USER_ID = #{uniqueId}
+  <select id="selectUserUniqueId" parameterType="String" resultType="com.ketotalk.dto.UserInfoVO">
+  	SELECT U.USER_SEQ
+  		, U.USER_ID
+  		, U.USER_BIRTH
+  		, U.USER_SEX
+  		, U.USER_NICKNAME
+        , CH.CHOICE_SEQ
+        , CH.REG_DATE
+        , CH.RESULT_DESEASE_NAME
+  	FROM ketotalk.USER_MNG U
+    LEFT JOIN ketotalk.USER_CHOICE_HISTORY AS CH ON CH.USER_ID = U.USER_ID
+  	WHERE U.USER_ID = #{uniqueId}
   </select>
 	
 	<insert id="insertUser" parameterType="com.ketotalk.dto.UserDTO">
@@ -85,11 +89,12 @@
 	</insert>
 	
 	<insert id="insertUserHistory" parameterType="com.ketotalk.dto.UserChoiceHistoryDTO" useGeneratedKeys="true" keyProperty="choice_seq">
-		INSERT INTO USER_CHOICE_HISTORY (USER_ID, Q1_SELECTED_SEQ, UPPER_Q_SEQ_SELECTED_SEQ)
+		INSERT INTO USER_CHOICE_HISTORY (USER_ID, Q1_SELECTED_SEQ, AGE, REG_DATE)
 		VALUES (
 			#{user_id}
 			, NULL
 			, NULL
+			, DEFAULT
 		)
 	</insert>
 	
@@ -166,7 +171,7 @@
 		WHERE Q.USE_YN = 'Y'
 			AND SI.USE_YN = 'Y'
 			AND SI.QT_Q_SEQ = #{qt_q_seq}
-			AND SI.UPPER_Q_SEQ_SELECTED__SEQ = #{upper_q_seq_selected__seq}
+			AND SI.UPPER_Q_SEQ_SELECTED__SEQ = #{order_no}
 	</select>
 	
 	<select id="selectQuestionRull2" parameterType="com.ketotalk.dto.ResultQnAVO" resultType="com.ketotalk.dto.ResultQnAVO">
@@ -190,7 +195,7 @@
 			AND SI.USE_YN = 'Y'
 			AND SI.QT_Q_SEQ = #{qt_q_seq}
 			AND SI.Q1_SELECTED_SEQ = #{q1_selected_seq}
-			AND SI.UPPER_Q_SEQ_SELECTED__SEQ = #{upper_q_seq_selected__seq}
+			AND SI.UPPER_Q_SEQ_SELECTED__SEQ = #{order_no}
 	</select>
 	
 	<select id="selectQuestionRull3" parameterType="com.ketotalk.dto.ResultQnAVO" resultType="com.ketotalk.dto.ResultQnAVO">
@@ -238,12 +243,89 @@
 			AND SI.Q1_SELECTED_SEQ = #{q1_selected_seq}
 	</select>
 	
+	<select id="selectQuestionLastInput" parameterType="com.ketotalk.dto.ResultQnAVO" resultType="com.ketotalk.dto.ResultQnAVO">
+		SELECT Q.Q_SEQ 
+			, Q.UPPER_Q_SEQ
+		    , Q.COMMON_Q_YN
+		    , Q.CATEGORY
+		    , Q.CATEGORY_SUB
+		    , Q.Q_CONTENTS
+		    , Q.SELECT_TYPE
+		    , Q.ORDER_NO
+		FROM ketotalk.QUESTION_MNG Q
+		WHERE Q.USE_YN = 'Y'
+		    AND Q.Q_SEQ = #{qt_q_seq}
+	</select>
 	
+	<update id="choiceHistoryUpdate" parameterType="com.ketotalk.dto.UserChoiceHistoryDTO">
+		UPDATE USER_CHOICE_HISTORY
+		<trim prefix="SET" suffixOverrides=",">
+	      <if test="q_1_selected_seq != 0">Q_1_SELECTED_SEQ = #{q_1_selected_seq},</if>
+	      <if test="q_2_selected_seq != 0">Q_2_SELECTED_SEQ = #{q_2_selected_seq},</if>
+	      <if test="q_3_selected_seq != 0">Q_3_SELECTED_SEQ = #{q_3_selected_seq},</if>
+	      <if test="q_4_selected_seq != 0">Q_4_SELECTED_SEQ = #{q_4_selected_seq},</if>
+	      <if test="q_5_selected_seq != 0">Q_5_SELECTED_SEQ = #{q_5_selected_seq},</if>
+	      <if test="q_6_selected_seq != 0">Q_6_SELECTED_SEQ = #{q_6_selected_seq},</if>
+	      <if test="q_7_selected_seq != 0">Q_7_SELECTED_SEQ = #{q_7_selected_seq},</if>
+	      <if test="q_8_selected_seq != 0">Q_8_SELECTED_SEQ = #{q_8_selected_seq},</if>
+	      <if test="q_9_selected_seq != 0">Q_9_SELECTED_SEQ = #{q_9_selected_seq},</if>
+	      <if test="q_10_selected_seq != 0">Q_10_SELECTED_SEQ = #{q_10_selected_seq},</if>
+	      <if test="q_11_selected_seq != 0">Q_11_SELECTED_SEQ = #{q_11_selected_seq},</if>
+	      <if test="q_12_selected_seq != 0">Q_12_SELECTED_SEQ = #{q_12_selected_seq},</if>
+	      <if test="q_13_selected_seq != 0">Q_13_SELECTED_SEQ = #{q_13_selected_seq},</if>
+	   </trim>
+	   WHERE CHOICE_SEQ = #{choice_seq}
+	</update>
 	
+	<select id="selectUserChoiceHistory" parameterType="int" resultType="com.ketotalk.dto.UserChoiceHistoryDTO">
+		SELECT CHOICE_SEQ
+			, USER_ID
+			, Q1_SELECTED_SEQ
+			, Q_1_SELECTED_SEQ
+			, Q_2_SELECTED_SEQ
+			, Q_3_SELECTED_SEQ
+			, Q_4_SELECTED_SEQ
+			, Q_5_SELECTED_SEQ
+			, Q_6_SELECTED_SEQ
+			, Q_7_SELECTED_SEQ
+			, Q_8_SELECTED_SEQ
+			, Q_9_SELECTED_SEQ
+			, Q_10_SELECTED_SEQ
+			, Q_11_SELECTED_SEQ
+			, Q_12_SELECTED_SEQ
+			, Q_13_SELECTED_SEQ
+		FROM USER_CHOICE_HISTORY
+		WHERE CHOICE_SEQ = #{choiceSeq}
+	</select>
 	
+	<select id="selectResultData" parameterType="com.ketotalk.dto.ResultDeseaseDTO" resultType="com.ketotalk.dto.ResultDeseaseDTO">
+		SELECT RDM.RESULT_DESEASE_NAME
+			, RDM.SEQ
+			, RDM.DESEASE_SEQ
+			, D.DISEASE_CONTENT
+		FROM ketotalk.RESULT_DESEASE_MNG RDM
+		LEFT JOIN ketotalk.DISEASE_LIST AS D ON D.DISEASE_SEQ = RDM.DESEASE_SEQ
+		WHERE 1 = 1
+			<if test="q_1_selected_seq != 0">AND RDM.Q_1_SELECTED_SEQ = #{q_1_selected_seq}</if>
+	      <if test="q_2_selected_seq != 0">AND RDM.Q_2_SELECTED_SEQ LIKE CONCAT('%', #{q_2_selected_seq}, '%')</if>
+	      <if test="q_3_selected_seq != 0">AND RDM.Q_3_SELECTED_SEQ LIKE CONCAT('%', #{q_3_selected_seq}, '%')</if>
+	      <if test="q_4_selected_seq != 0">AND RDM.Q_4_SELECTED_SEQ LIKE CONCAT('%', #{q_4_selected_seq}, '%')</if>
+	      <if test="q_5_selected_seq != 0">AND RDM.Q_5_SELECTED_SEQ LIKE CONCAT('%', #{q_5_selected_seq}, '%')</if>
+	      <if test="q_6_selected_seq != 0">AND RDM.Q_6_SELECTED_SEQ LIKE CONCAT('%', #{q_6_selected_seq}, '%')</if>
+	      <if test="q_7_selected_seq != 0">AND RDM.Q_7_SELECTED_SEQ LIKE CONCAT('%', #{q_7_selected_seq}, '%')</if>
+	      <if test="q_8_selected_seq != 0">AND RDM.Q_8_SELECTED_SEQ LIKE CONCAT('%', #{q_8_selected_seq}, '%')</if>
+	      <if test="q_9_selected_seq != 0">AND RDM.Q_9_SELECTED_SEQ LIKE CONCAT('%', #{q_9_selected_seq}, '%')</if>
+	      <if test="q_10_selected_seq != 0">AND RDM.Q_10_SELECTED_SEQ LIKE CONCAT('%', #{q_10_selected_seq}, '%')</if>
+	      <if test="q_11_selected_seq != 0">AND RDM.Q_11_SELECTED_SEQ LIKE CONCAT('%', #{q_11_selected_seq}, '%')</if>
+	      <if test="q_12_selected_seq != 0">AND RDM.Q_12_SELECTED_SEQ LIKE CONCAT('%', #{q_12_selected_seq}, '%')</if>
+	      <if test="q_13_selected_seq != 0">AND RDM.Q_13_SELECTED_SEQ LIKE CONCAT('%', #{q_13_selected_seq}, '%')</if>
+	</select>
 	
-	
-	
+	<update id="insertUserResultDeseaseName" parameterType="com.ketotalk.dto.UserChoiceHistoryDTO" >
+		UPDATE USER_CHOICE_HISTORY
+		SET RESULT_DESEASE_NAME = #{result_desease_name}
+		WHERE CHOICE_SEQ = #{choice_seq}
+	</update>
 	
 	
 </mapper>
